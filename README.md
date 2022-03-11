@@ -159,6 +159,21 @@ In order to get the response of the transaction enqueued in the person microserv
     - Body: The DeletePersonResponse object.
     - Headers: The cache headers.
 
+## Running the application
+### Compiling the project
+This solution does not build as the Visual Studio docker build support does, because it takes a long time to finish the build and that is not functional for a development environment.
+Execute the command ```dotnet build -c Release``` on each Net6 project folder (HttpMicroservice, WorkerMicroservice and APIGateway)
+
+### Executing docker compose
+Once each project already has the bin/Release/publish folder, you are able to run in the root folder the following command: ```docker-compose up -d````
+
+## Environment requirements
+- Docker: Follow this guid to install docker desktop https://docs.docker.com/desktop
+- Docker compose: Follow this guid to install docker compose https://docs.docker.com/compose/install
+- Net6: Download the latest release for Net6 SDK https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+- VS Code: Download the best code editor https://code.visualstudio.com
+    - VS Code c# extension: https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp
+
 # My contact info
 - GitHub: https://github.com/bcamposq1995
 - LinkedIn: https://www.linkedin.com/in/bryan-campos-a04a9689
