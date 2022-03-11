@@ -1,0 +1,106 @@
+version: '3.4'
+
+services:
+  person_http:
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - REDIS_CONNECTION_STRING=redis
+      - RABBIT_CONNECTION_STRING=rabbit
+    ports:
+      - 8081:80
+    depends_on:
+      - rabbit
+      - consul
+    networks:
+      - person
+  person_worker:
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DB_CONNECTION_STRING=Server=postgres;Port=5432;Database=person;User Id=person;Password=123456789
+      - REDIS_CONNECTION_STRING=redis
+      - RABBIT_CONNECTION_STRING=rabbit
+    ports:
+      - 8082:80
+    depends_on:
+      - rabbit
+      - consul
+    networks:
+      - person
+  gateway:
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 8080:80
+    networks:
+      - person
+    depends_on:
+      - consul
+  postgres:
+    restart: always
+    networks:
+      - person
+    environment:
+      POSTGRES_USER: person
+      POSTGRES_DB: person
+      POSTGRES_PASSWORD: 123456789
+    volumes:
+      - ./postgres/var/lib/postgresql/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  redis:
+    restart: always
+    networks:
+      - person
+    volumes:
+       - ./redis/usr/local/etc/redis:/usr/local/etc/redis
+    ports:
+      - 6379:6379
+  rabbit:
+    restart: always
+    networks:
+      - person
+    ports:
+      - 5672:5672
+    volumes:
+      - ./rabbitmq/var/lib/rabbitmq/mnesia/:/var/lib/rabbitmq/mnesia/
+  prometheus:
+    restart: always
+    volumes:
+      - ./prometheus/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    networks:
+      - person
+    depends_on:
+      - consul
+  grafana:
+    restart: always
+    volumes:
+      - ./grafana/etc/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/etc/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/var/lib/grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/var/lib/grafana:/var/lib/grafana
+    environment:
+      #- GF_SECURITY_ADMIN_USER=admin
+      #- GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_SIGNOUT_MENU=true
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    ports:
+      - 3000:3000
+    networks:
+      - person
+    depends_on:
+      - prometheus
+  consul:
+    restart: always
+    ports:
+      - 8500:8500
+    networks:
+      - person

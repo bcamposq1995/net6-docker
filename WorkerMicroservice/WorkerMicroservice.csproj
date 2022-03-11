@@ -1,0 +1,61 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-WorkerMicroservice-7BC1F5D2-40F3-4F24-9301-861728602B11</UserSecretsId>
+    <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="consul" Version="1.6.10.4" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.4" />
+    <PackageReference Include="StackExchange.Redis" Version="2.2.88" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
+    <PackageReference Include="prometheus-net" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Services\" />
+    <None Remove="Repositories\" />
+    <None Remove="Repositories\Database\" />
+    <None Remove="Repositories\Reddis\" />
+    <None Remove="Migrations\" />
+    <None Remove="RabbitMQ.Client" />
+    <None Remove="StackExchange.Redis" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="Microsoft.EntityFrameworkCore" />
+    <None Remove="Microsoft.EntityFrameworkCore.Design" />
+    <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <None Remove="Services\Queue\" />
+    <None Remove="Services\Delete\" />
+    <None Remove="Services\Get\" />
+    <None Remove="Services\Patch\" />
+    <None Remove="Services\Post\" />
+    <None Remove="Services\Put\" />
+    <None Remove="prometheus-net" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Repositories\Database\" />
+    <Folder Include="Repositories\Cache\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Services\Queue\" />
+    <Folder Include="Services\Delete\" />
+    <Folder Include="Services\Get\" />
+    <Folder Include="Services\Patch\" />
+    <Folder Include="Services\Post\" />
+    <Folder Include="Services\Put\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Commons\Commons.csproj" />
+  </ItemGroup>
+</Project>

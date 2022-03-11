@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk" DefaultTargets="Build">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.1</ProjectVersion>
+    <DockerTargetOS>Linux</DockerTargetOS>
+    <ProjectGuid>{FB47FF26-F0C9-4777-A089-1E129B5CE437}</ProjectGuid>
+    <DockerLaunchBrowser>True</DockerLaunchBrowser>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+    <DockerServiceName>httpmicroservice</DockerServiceName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="docker-compose.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.yml" />
+    <None Include=".dockerignore" />
+    <None Include="prometheus\config\prometheus.yml" />
+    <None Include="grafana\config\datasources\datasource.yml" />
+    <None Include="grafana\config\dashboards\jsons\prometheus-net.json" />
+    <None Include="grafana\config\dashboards\ymls\api.yml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="prometheus\" />
+    <Folder Include="postgres\" />
+    <Folder Include="redis\" />
+    <Folder Include="prometheus\data\" />
+    <Folder Include="postgres\data\" />
+    <Folder Include="redis\data\" />
+    <Folder Include="grafana\" />
+    <Folder Include="grafana\config\" />
+    <Folder Include="grafana\config\datasources\" />
+    <Folder Include="rabbitmq\" />
+    <Folder Include="rabbitmq\data\" />
+    <Folder Include="rabbitmq\config\" />
+    <Folder Include="grafana\data\" />
+    <Folder Include="grafana\config\dashboards\" />
+    <Folder Include="grafana\config\dashboards\ymls\" />
+    <Folder Include="grafana\config\dashboards\jsons\" />
+  </ItemGroup>
+</Project>

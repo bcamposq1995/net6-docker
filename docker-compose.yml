@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  person_http:
+    container_name: person_http
+    build:
+      context: ./HttpMicroservice
+      dockerfile: ./Dockerfile
+  person_worker:
+    container_name: person_worker
+    build:
+      context: ./WorkerMicroservice
+      dockerfile: ./Dockerfile
+  gateway:
+    container_name: gateway
+    build:
+      context: ./APIGateway
+      dockerfile: ./Dockerfile
+  postgres:
+    container_name: postgres
+    image: postgres
+  redis:
+    container_name: redis
+    image: redis
+  rabbit:
+    container_name: rabbit
+    image: rabbitmq
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+  consul:
+    container_name: consul
+    image: consul
+networks:
+  person:
+     name: person
+

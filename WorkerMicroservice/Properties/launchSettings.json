@@ -1,0 +1,16 @@
+﻿{
+  "profiles": {
+    "WorkerMicroservice": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DB_CONNECTION_STRING": "Server=localhost;Port=5432;Database=person;User Id=person;Password=123456789",
+        "REDIS_CONNECTION_STRING": "localhost",
+        "RABBIT_CONNECTION_STRING": "localhost"
+      }
+    }
+  }
+}
+
+
